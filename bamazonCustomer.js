@@ -38,11 +38,11 @@ function runSearch() {
             .then(function (answer) {
                 switch (answer.product) {
                     case "Find product":
-                        productSearch();
+                        displayProducts();
                         break;
 
                     case "Find all products under department name":
-                        multiSearch();
+                        productSearch();
                         break;
 
                     case "Find price of stock":
@@ -57,6 +57,23 @@ function runSearch() {
 
     });
 };
+
+function displayProducts() {
+    var query = "SELECT * FROM products";
+    connection.query(query, function (err, res) {
+        // console.log(res)
+        for (var i = 0; i < res.length; i++) {
+
+            console.log("product_name: " + res[i].product_name + " || Stock: " + res[i].stock_quantity);
+        }
+
+        // quantitySearch(res[0].stock_quantity, res[0].product_name, res[0].price);
+        productSearch()
+    });
+
+
+
+}
 
 function productSearch() {
     inquirer
